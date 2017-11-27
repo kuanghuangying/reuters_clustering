@@ -101,10 +101,13 @@ public class kcluster{
         id_label_map = getAllLabels();
         System.out.println("finish getting labels");
 
+        int trial_id = 1;
         for (int seed : seeds){
             kmeans trial = new kmeans(points, id_label_map, n_cluster, critFunc, seed);
-            trial.initialize_centroid();
+            trial.initialize_centroid(trial_id);
             trial.assign_cluster();
+            trial.update_centroid();
+            trial_id ++;
         }
 
         // verify the correctness of data point

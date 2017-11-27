@@ -28,10 +28,10 @@ public class kmeans {
         this.point_num = class_label.size();
     }
 
-    public void initialize_centroid(){
+    public void initialize_centroid(int trial_id){
+        Random generator = new Random(seed);
         for (int i = 0; i < n_cluster; i++){
-            Random generator = new Random(seed);
-            int num = (point_num-1)*generator.nextInt();
+            int num = generator.nextInt(point_num-1);
             System.out.println(num);
             point centroid = points[num];
             cluster new_cluster = new cluster(i,centroid);
@@ -40,7 +40,7 @@ public class kmeans {
             System.out.format("cluster id: %d",i);
             System.out.println();
         }
-        System.out.println("finished initializing centroids");
+        System.out.println("finished initializing centroids" + String.valueOf(trial_id));
     }
 
     public void assign_cluster(){
@@ -76,11 +76,15 @@ public class kmeans {
                         }
                     }
             }
+            System.out.println(p.label + " belongs to " + p.cluster.cluster_id);
         }
-        System.out.println(points[0].label + " belongs to " + points[0].cluster.cluster_id);
-        System.out.println(points[1].label + " belongs to " + points[1].cluster.cluster_id);
+        //System.out.println(points[0].label + " belongs to " + points[0].cluster.cluster_id);
+        //System.out.println(points[1].label + " belongs to " + points[1].cluster.cluster_id);
     }
-    
+
+    public void update_centroid(){
+
+    }
     /* update centroid?
                 double sum_vec = 0.0;
             for (double x : val) sum_vec += x;

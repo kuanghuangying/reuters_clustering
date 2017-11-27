@@ -2,17 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="eb20d820-e424-4bb3-9098-9fd3a5b64cb5" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SparseVector.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.nfs0000000000941a780000282d" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kcluster.class" afterPath="$PROJECT_DIR$/kcluster.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kmeans.class" afterPath="$PROJECT_DIR$/kmeans.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/point.class" afterPath="$PROJECT_DIR$/point.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/freq.csv" afterPath="$PROJECT_DIR$/freq.csv" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kcluster.java" afterPath="$PROJECT_DIR$/kcluster.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kmeans.java" afterPath="$PROJECT_DIR$/kmeans.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/log2freq.csv" afterPath="$PROJECT_DIR$/log2freq.csv" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/point.java" afterPath="$PROJECT_DIR$/point.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sqrtfreq.csv" afterPath="$PROJECT_DIR$/sqrtfreq.csv" />
     </list>
     <ignored path="CSCI5523.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -37,8 +31,8 @@
       <file leaf-file-name="kcluster.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/kcluster.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-822">
-              <caret line="58" column="21" selection-start-line="58" selection-start-column="21" selection-end-line="58" selection-end-column="21" />
+            <state relative-caret-position="273">
+              <caret line="108" column="36" selection-start-line="108" selection-start-column="36" selection-end-line="108" selection-end-column="36" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#getAllLabels#0;class#kcluster#0" expanded="false" />
@@ -47,13 +41,15 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="kmeans.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="kmeans.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/kmeans.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="332">
-              <caret line="57" column="25" selection-start-line="57" selection-start-column="25" selection-end-line="57" selection-end-column="25" />
+            <state relative-caret-position="510">
+              <caret line="84" column="31" selection-start-line="84" selection-start-column="16" selection-end-line="84" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="method#initialize_centroid#0;class#kmeans#0" expanded="false" />
+                <element signature="method#assign_cluster#0;class#kmeans#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -74,11 +70,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SparseVector.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SparseVector.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SparseVector.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="24" column="51" selection-start-line="24" selection-start-column="51" selection-end-line="24" selection-end-column="51" />
+            <state relative-caret-position="450">
+              <caret line="30" column="49" selection-start-line="30" selection-start-column="49" selection-end-line="30" selection-end-column="49" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1440#1441#0" expanded="true" />
@@ -121,8 +117,8 @@
         <option value="$PROJECT_DIR$/cluster.java" />
         <option value="$PROJECT_DIR$/preprocess.py" />
         <option value="$PROJECT_DIR$/point.java" />
-        <option value="$PROJECT_DIR$/kmeans.java" />
         <option value="$PROJECT_DIR$/SparseVector.java" />
+        <option value="$PROJECT_DIR$/kmeans.java" />
         <option value="$PROJECT_DIR$/kcluster.java" />
       </list>
     </option>
@@ -509,6 +505,8 @@
           <caret line="11" column="4" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="18" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="method#initialize_centroid#0;class#kmeans#0" expanded="false" />
+            <element signature="method#assign_cluster#0;class#kmeans#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -550,27 +548,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/kcluster.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-822">
-          <caret line="58" column="21" selection-start-line="58" selection-start-column="21" selection-end-line="58" selection-end-column="21" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#getAllLabels#0;class#kcluster#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/kmeans.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="332">
-          <caret line="57" column="25" selection-start-line="57" selection-start-column="25" selection-end-line="57" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/point.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
@@ -586,12 +563,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SparseVector.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" column="51" selection-start-line="24" selection-start-column="51" selection-end-line="24" selection-end-column="51" />
+        <state relative-caret-position="450">
+          <caret line="30" column="49" selection-start-line="30" selection-start-column="49" selection-end-line="30" selection-end-column="49" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1440#1441#0" expanded="true" />
             <element signature="e#1488#1489#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kcluster.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="108" column="36" selection-start-line="108" selection-start-column="36" selection-end-line="108" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#getAllLabels#0;class#kcluster#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kmeans.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="84" column="31" selection-start-line="84" selection-start-column="16" selection-end-line="84" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#initialize_centroid#0;class#kmeans#0" expanded="false" />
+            <element signature="method#assign_cluster#0;class#kmeans#0" expanded="false" />
           </folding>
         </state>
       </provider>
