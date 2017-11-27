@@ -1,3 +1,3 @@
 preprocess:
 	conda
-	python ./process.py
+	python ./preprocess.py
