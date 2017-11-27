@@ -1,3 +1,5 @@
+preprocess took 227 seconds
+
 1. Get top 20 topics, then retain articles whose topic belongs to the top 20
 and have body tags.
 2. There were some weird issues with BeautifulSoup not able to find <body> tag
