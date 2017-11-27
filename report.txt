@@ -1,0 +1,6 @@
+1. Get top 20 topics, then retain articles whose topic belongs to the top 20
+and have body tags.
+2. There were some weird issues with BeautifulSoup not able to find <body> tag
+not matter if I use .body or find('body')
+So The way I determine if an article contains body tag is by first replacing
+all "BODY" with "CONTENT" and then use BeautifulSoup to detect "content"
