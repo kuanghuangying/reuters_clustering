@@ -172,13 +172,13 @@ for id, word_vec in article_vec.items():
     n=0
     while n < dimension_num:
         if norm1[n] != 0:
-            id_dim_freq1 = ','.join([str(id),str(n+1),str(norm1[n])]) + '\n'
+            id_dim_freq1 = ','.join([str(id),str(n),str(norm1[n])]) + '\n'
             freq_csv.write(id_dim_freq1)
         if norm2[n] != 0:
-            id_dim_freq2 = ','.join([str(id),str(n+1),str(norm2[n])]) + '\n'
+            id_dim_freq2 = ','.join([str(id),str(n),str(norm2[n])]) + '\n'
             sqrtfreq_csv.write(id_dim_freq2)
         if norm3[n] != 0:
-            id_dim_freq3 = ','.join([str(id),str(n+1),str(norm3[n])]) + '\n'
+            id_dim_freq3 = ','.join([str(id),str(n),str(norm3[n])]) + '\n'
             log2freq_csv.write(id_dim_freq3)
 	n += 1
     print(ctr)
