@@ -3,7 +3,7 @@
  */
 public class point {
     SparseVector value;
-    cluster cluster;
+    int cluster_id;
     String label;
 
     public point(SparseVector value){
@@ -13,14 +13,14 @@ public class point {
         this.value = value;
         this.label = label;
     }
-    public point(SparseVector value,cluster c){
+    public point(SparseVector value, int cluster_id){
         this.value = value;
-        this.cluster = c;
+        this.cluster_id = cluster_id;
     }
-    public double distance_from(point p2, String func){
+    public double distance_from(SparseVector c2, String func){
         double distance = 0;
         if (func.equals("SSE")){
-            distance = this.value.euclidean_dist(p2.value);
+            distance = this.value.euclidean_dist(c2);
         }
         else if (func.equals("I2")){
             //TODO
@@ -33,4 +33,5 @@ public class point {
     public void setValue(SparseVector value){
         this.value = value;
     }
+
 }
