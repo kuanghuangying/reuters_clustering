@@ -5,6 +5,7 @@ public class point {
     SparseVector value;
     int cluster_id;
     String label;
+    int topic_id;
 
     public point(SparseVector value){
         this.value = value;

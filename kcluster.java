@@ -22,6 +22,7 @@ public class kcluster{
     private static int number_point;
     private static int dimension;
     private static Map<String,String> id_label_map;
+    private static Map<String,Integer> topic_col_map;
     private static final int[] seeds = {1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39};
     static String deliminator = ",";
     static String newline = "\n";
@@ -44,6 +45,7 @@ public class kcluster{
                 v = Double.valueOf(content[2]);
                 points[point_counter] = new point(new SparseVector(dimension));
                 points[point_counter].value.put(dim,v);
+                points[point_counter].topic_id = topic_col_map.get(id_label_map.get(id));
                 points[point_counter].label = id;
                 first_line = false;
             }
@@ -64,6 +66,7 @@ public class kcluster{
                     point_counter ++;
                     points[point_counter] = new point(new SparseVector(dimension));
                     points[point_counter].value.put(current_dim,current_v);
+                    points[point_counter].topic_id = topic_col_map.get(id_label_map.get(current_id));
                     points[point_counter].label = current_id;
                     id = current_id;
                 }
@@ -75,12 +78,18 @@ public class kcluster{
 
     private static Map<String,String> getAllLabels(){
         Map<String,String> label_map = new HashMap<>();
+        topic_col_map = new HashMap<>();
         String[] content;
+        int i = 0;
         for (String id_topic : classFile){
             content = id_topic.split(",");
             String id = content[0];
             String topic = content[1];
             label_map.put(id,topic);
+            if (!topic_col_map.containsKey(topic)){
+                topic_col_map.put(topic,i);
+                i++;
+            }
         }
         return label_map;
     }
@@ -104,7 +113,6 @@ public class kcluster{
     private static void write_output_file(kmeans best_trial) throws IOException{
 
         PrintWriter report = new PrintWriter(new FileWriter(outFileName));
-        PrintWriter distribution = new PrintWriter(new FileWriter(inFIleName.substring(0,inFIleName.indexOf(".")) +critFunc+n_cluster+".txt"));
 
         StringBuilder sb = new StringBuilder();
         for (point p : best_trial.points){
@@ -116,6 +124,34 @@ public class kcluster{
         report.write(sb.toString());
         report.close();
     }
+    private static int[][] get_distribution(kmeans best_trial){
+        int[][] distribution = new int[best_trial.clusters.length][20];
+        for (int c_id = 0; c_id < distribution.length;c_id++){
+            for (point p : best_trial.clusters[c_id].points){
+                int topic_id = p.topic_id;
+                distribution[c_id][topic_id] ++;
+            }
+        }
+        return distribution;
+    }
+
+    private static void write_distribution(int[][] distribution) throws IOException{
+
+        PrintWriter report = new PrintWriter(new FileWriter(inFIleName.substring(0,inFIleName.indexOf(".")) +critFunc+n_cluster+".txt"));
+        StringBuilder sb = new StringBuilder();
+
+        for (int[] cluster: distribution){
+
+            sb.append(p.label);
+            sb.append(deliminator);
+            sb.append(p.cluster_id);
+            sb.append(newline);
+        }
+        report.write(sb.toString());
+        report.close();
+    }
+
+
     public static void main(String[] args) throws IOException {
         //kcluster input-file criterion-function class-file #clusters #trials output-file
         //java kcluster "freq.csv" SSE "reuters21578.class" 20 20 "out.txt"
@@ -133,10 +169,12 @@ public class kcluster{
 
         long startTime = System.currentTimeMillis();
 
-        point[] points = getAllPoints();
-        System.out.println("finish getting points");
         id_label_map = getAllLabels();
         System.out.println("finish getting labels");
+
+        point[] points = getAllPoints();
+        System.out.println("finish getting points");
+
 
         int trial_id = 1;
         double threshold = 5;
@@ -198,9 +236,9 @@ public class kcluster{
 
 
         write_evaluation(best_criterion,totalTime);
-
         write_output_file(best_trial);
-
+        int[][] distribution =   get_distribution(best_trial);
+        write_distribution(distribution);
 
 
 
