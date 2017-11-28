@@ -94,22 +94,6 @@ public class kcluster{
         return label_map;
     }
 
-    private static void write_evaluation(double best_criterion, long totalTime) throws IOException{
-        PrintWriter report = new PrintWriter(new FileWriter("evaluation.csv",true));
-        StringBuilder sb = new StringBuilder();
-        sb.append(critFunc);
-        sb.append(deliminator);
-        sb.append(n_cluster);
-        sb.append(deliminator);
-        sb.append(best_criterion);
-        sb.append(deliminator);
-        sb.append(totalTime);
-        sb.append(newline);
-
-        report.write(sb.toString());
-        report.close();
-    }
-
     private static void write_output_file(kmeans best_trial) throws IOException{
 
         PrintWriter report = new PrintWriter(new FileWriter(outFileName));
@@ -124,6 +108,7 @@ public class kcluster{
         report.write(sb.toString());
         report.close();
     }
+
     private static int[][] get_distribution(kmeans best_trial){
         int[][] distribution = new int[best_trial.clusters.length][20];
         for (int c_id = 0; c_id < distribution.length;c_id++){
@@ -141,19 +126,33 @@ public class kcluster{
         StringBuilder sb = new StringBuilder();
 
         for (int[] cluster: distribution){
-
-            sb.append(p.label);
-            sb.append(deliminator);
-            sb.append(p.cluster_id);
+            for(int entry : cluster){
+                sb.append(entry);
+                sb.append(deliminator);
+            }
             sb.append(newline);
         }
         report.write(sb.toString());
         report.close();
     }
 
+    private static void write_evaluation(int[][] distribution, double best_criterion, long totalTime) throws IOException{
+        PrintWriter report = new PrintWriter(new FileWriter("evaluation.csv",true));
+        StringBuilder sb = new StringBuilder();
+        sb.append(critFunc);
+        sb.append(deliminator);
+        sb.append(n_cluster);
+        sb.append(deliminator);
+        sb.append(best_criterion);
+        sb.append(deliminator);
+        sb.append(totalTime);
+        sb.append(newline);
+
+        report.write(sb.toString());
+        report.close();
+    }
 
     public static void main(String[] args) throws IOException {
-        //kcluster input-file criterion-function class-file #clusters #trials output-file
         //java kcluster "freq.csv" SSE "reuters21578.class" 20 20 "out.txt"
         inFile = Files.readAllLines(Paths.get(args[0]), StandardCharsets.UTF_8);
         inFIleName = String.valueOf(args[0]);
@@ -164,13 +163,14 @@ public class kcluster{
         outFileName = String.valueOf(args[5]);
         number_point = classFile.size();
         dimension = Files.readAllLines(Paths.get("reuters21578.clabel"), StandardCharsets.UTF_8).size();
-        System.out.println(dimension);
 
 
         long startTime = System.currentTimeMillis();
 
+
         id_label_map = getAllLabels();
         System.out.println("finish getting labels");
+
 
         point[] points = getAllPoints();
         System.out.println("finish getting points");
@@ -229,28 +229,17 @@ public class kcluster{
         /*
         *  write
         */
-        // reporting time
         long endTime = System.currentTimeMillis();
         long totalTime = endTime - startTime;
 
 
 
-        write_evaluation(best_criterion,totalTime);
         write_output_file(best_trial);
+
         int[][] distribution =   get_distribution(best_trial);
         write_distribution(distribution);
 
-
-
-                //cluster.buildReport(totalTime);
-                //System.out.println("Total execution time: " + Double.toString(totalTime/ 1000.0) + " seconds");
-                //        String jsonString = new JSONObject()
-                //                .put("sup", cluster.minsup)
-                //                .put("file","" + args[2])
-                //                .put("itemset_time", Double.toString(totalTime/ 1000.0) + " seconds")
-                //                .put("num_patterns", cluster.itemSetFrequencies.size()).toString();
-                //        System.out.println(jsonString);
-
+        write_evaluation(best_criterion,distribution,totalTime);
 
     }
 }

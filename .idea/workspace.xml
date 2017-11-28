@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="eb20d820-e424-4bb3-9098-9fd3a5b64cb5" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kcluster.class" afterPath="$PROJECT_DIR$/kcluster.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kmeans.class" afterPath="$PROJECT_DIR$/kmeans.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/evaluation.csv" afterPath="$PROJECT_DIR$/evaluation.csv" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kcluster.java" afterPath="$PROJECT_DIR$/kcluster.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/point.java" afterPath="$PROJECT_DIR$/point.java" />
     </list>
     <ignored path="CSCI5523.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -31,14 +27,15 @@
       <file leaf-file-name="kcluster.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/kcluster.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="177">
-              <caret line="146" column="36" selection-start-line="146" selection-start-column="36" selection-end-line="146" selection-end-column="36" />
+            <state relative-caret-position="355">
+              <caret line="139" column="78" selection-start-line="139" selection-start-column="78" selection-end-line="139" selection-end-column="78" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#getAllPoints#0;class#kcluster#0" expanded="false" />
                 <element signature="method#getAllLabels#0;class#kcluster#0" expanded="false" />
-                <element signature="method#write_evaluation#0;class#kcluster#0" expanded="false" />
+                <element signature="method#write_output_file#0;class#kcluster#0" expanded="false" />
                 <element signature="method#get_distribution#0;class#kcluster#0" expanded="false" />
+                <element signature="method#write_distribution#0;class#kcluster#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -484,7 +481,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="2" />
+      <option name="time" value="3" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -501,8 +498,9 @@
             <element signature="imports" expanded="true" />
             <element signature="method#getAllPoints#0;class#kcluster#0" expanded="false" />
             <element signature="method#getAllLabels#0;class#kcluster#0" expanded="false" />
-            <element signature="method#write_evaluation#0;class#kcluster#0" expanded="false" />
+            <element signature="method#write_output_file#0;class#kcluster#0" expanded="false" />
             <element signature="method#get_distribution#0;class#kcluster#0" expanded="false" />
+            <element signature="method#write_distribution#0;class#kcluster#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -560,8 +558,9 @@
             <element signature="imports" expanded="true" />
             <element signature="method#getAllPoints#0;class#kcluster#0" expanded="false" />
             <element signature="method#getAllLabels#0;class#kcluster#0" expanded="false" />
-            <element signature="method#write_evaluation#0;class#kcluster#0" expanded="false" />
+            <element signature="method#write_output_file#0;class#kcluster#0" expanded="false" />
             <element signature="method#get_distribution#0;class#kcluster#0" expanded="false" />
+            <element signature="method#write_distribution#0;class#kcluster#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -655,14 +654,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/kcluster.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="146" column="36" selection-start-line="146" selection-start-column="36" selection-end-line="146" selection-end-column="36" />
+        <state relative-caret-position="355">
+          <caret line="139" column="78" selection-start-line="139" selection-start-column="78" selection-end-line="139" selection-end-column="78" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#getAllPoints#0;class#kcluster#0" expanded="false" />
             <element signature="method#getAllLabels#0;class#kcluster#0" expanded="false" />
-            <element signature="method#write_evaluation#0;class#kcluster#0" expanded="false" />
+            <element signature="method#write_output_file#0;class#kcluster#0" expanded="false" />
             <element signature="method#get_distribution#0;class#kcluster#0" expanded="false" />
+            <element signature="method#write_distribution#0;class#kcluster#0" expanded="false" />
           </folding>
         </state>
       </provider>
