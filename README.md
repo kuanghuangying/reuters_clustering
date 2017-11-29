@@ -1,4 +1,9 @@
 # reuters_clustering
+0. Command to run:
+  make preprocess
+  make kcluster
+  kcluster input-file criterion-function(SSE/I2/E1) class-file #clusters #trials(20) output-file
+
 1. Dataset: from the "Reuters-21578 Text Categorization Collection Data Set" that is available at the UCI Machine Learning Repository (link: https://archive.ics.uci.edu/ml/datasets/Reuters-21578+Text+Categorization+Collection)
 
 2. K-means clustering implementation
