@@ -28,10 +28,12 @@ public class SparseVector {
     }
 
     public double dot(SparseVector that) {
+        //System.out.println("this len" + String.valueOf(this.len));
+        //System.out.println("that len" + String.valueOf(that.len));
         if (this.len != that.len) throw new IllegalArgumentException("Vector lengths disagree");
         double sum = 0.0;
 
-        // iterate over the vector with the fewemap nonzeros
+        // iterate over the vector with the fewer map nonzeros
         if (this.map.size() <= that.map.size()) {
             for (int i : this.map.keySet())
                 if (that.map.containsKey(i)) sum += this.get(i) * that.get(i);
@@ -70,6 +72,12 @@ public class SparseVector {
             }
         }
         return Math.sqrt(sum);
+    }
+    public double cos_similarity (SparseVector that){
+        double cos = 0;
+        double dot_product = this.dot(that);
+        cos = dot_product/(this.norm()*that.norm());
+        return cos;
     }
 
     public String toString() {

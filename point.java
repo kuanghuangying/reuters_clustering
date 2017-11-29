@@ -24,10 +24,10 @@ public class point {
             distance = this.value.euclidean_dist(c2);
         }
         else if (func.equals("I2")){
-            //TODO
+            distance = this.value.cos_similarity(c2);
         }
         else if (func.equals("E1")){
-
+            distance = this.value.cos_similarity(c2);
         }
         return distance;
     }

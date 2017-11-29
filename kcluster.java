@@ -26,8 +26,9 @@ public class kcluster{
     private static final int[] seeds = {1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39};
     static String deliminator = ",";
     static String newline = "\n";
-    static float entropy;
+    static double entropy;
     static float purity;
+    static boolean test;
 
 
     private static point[] getAllPoints(){
@@ -124,7 +125,7 @@ public class kcluster{
 
     private static void write_distribution(int[][] distribution) throws IOException{
 
-        PrintWriter report = new PrintWriter(new FileWriter(inFIleName.substring(0,inFIleName.indexOf(".")) +critFunc+n_cluster+".txt"));
+        PrintWriter report = new PrintWriter(new FileWriter("distribution_" +inFIleName.substring(0,inFIleName.indexOf(".")) +critFunc+n_cluster+".txt"));
         StringBuilder sb = new StringBuilder();
 
         for (int[] cluster: distribution){
@@ -141,21 +142,24 @@ public class kcluster{
     private static void get_entropy_purity(int[][] distribution,kmeans best_trial){
         int totalCol = distribution[0].length;
         int total = best_trial.points.length;
-        float e = 0;
+        double e = 0;
         float pu = 0;
 
         for (int row = 0; row < distribution.length; row++){
             float e_j = 0;
             float pu_j = Float.MIN_VALUE;
-            float row_sum = (float)best_trial.clusters[row].getSize();
+            int row_sum = best_trial.clusters[row].getSize();
             for (int col = 0; col < totalCol; col ++){
 
-                float p = distribution[row][col] / row_sum;
-                e_j += ( p *  ( Math.log(p)/Math.log(2)) );
-
+                double p = (double)distribution[row][col] / row_sum;
+                if (p != 0) {
+                    e_j += (p * (Math.log(p) / Math.log(2)));
+                }
+                System.out.println("e_j: " + String.valueOf(e_j) + "div: " + String.valueOf((double)distribution[row][col] / row_sum));
                 if (distribution[row][col] > pu_j) pu_j = distribution[row][col];
             }
             e += (row_sum/total) * e_j;
+
             pu += (row_sum/total) * pu_j;
         }
         entropy = e;
@@ -163,14 +167,23 @@ public class kcluster{
     }
 
     private static void write_evaluation(int[][] distribution, double best_criterion, long totalTime) throws IOException{
-        PrintWriter report = new PrintWriter(new FileWriter("evaluation.csv",true));
+        PrintWriter report;
+        if (test){
+           report = new PrintWriter(new FileWriter("test_evaluation.csv",true));
+        }else{
+            report = new PrintWriter(new FileWriter("evaluation.csv",true));
+        }
+
         StringBuilder sb = new StringBuilder();
+        sb.append(inFIleName);
+        sb.append(deliminator);
         sb.append(critFunc);
         sb.append(deliminator);
         sb.append(n_cluster);
         sb.append(deliminator);
         sb.append(best_criterion);
         sb.append(deliminator);
+        System.out.println(entropy);
         sb.append(entropy);
         sb.append(deliminator);
         sb.append(purity);
@@ -193,7 +206,7 @@ public class kcluster{
         outFileName = String.valueOf(args[5]);
         number_point = classFile.size();
         dimension = Files.readAllLines(Paths.get("reuters21578.clabel"), StandardCharsets.UTF_8).size();
-
+        test = Boolean.valueOf(args[6]);
 
         long startTime = System.currentTimeMillis();
 
@@ -212,19 +225,24 @@ public class kcluster{
         switch (critFunc) {
             case ("SSE"):
                 best_criterion = Double.MAX_VALUE;
+                break;
             case ("I2"):
                 best_criterion = Double.MIN_VALUE;
+                break;
             case ("E1"):
                 best_criterion = Double.MIN_VALUE;
+                break;
         }
         kmeans best_trial = null;
         for (int seed : seeds) {
-            kmeans trial = new kmeans(points, id_label_map, n_cluster, critFunc, seed);
+            kmeans trial = new kmeans(points, id_label_map, dimension, n_cluster, critFunc, seed);
             trial.initialize_centroid(trial_id);
 
             int iteration = 0;
             while (true) {
                 trial.assign_cluster();
+
+
                 trial.update_centroid();
                 if (trial.converge(threshold) || iteration > 15) {
                     switch (critFunc) {
@@ -233,16 +251,19 @@ public class kcluster{
                                 best_criterion = trial.criterionVal;
                                 best_trial = trial;
                             }
+                            break;
                         case ("I2"):
                             if (trial.criterionVal > best_criterion){
                                 best_criterion = trial.criterionVal;
                                 best_trial = trial;
                             }
+                            break;
                         case ("E1"):
                             if (trial.criterionVal > best_criterion) {
                                 best_criterion = trial.criterionVal;
                                 best_trial = trial;
                             }
+                            break;
                     }
                     System.out.println("criterion function value is: " + String.format("%.2f", trial.criterionVal));
                     break;
@@ -251,7 +272,6 @@ public class kcluster{
                 iteration++;
             }
             trial_id++;
-            break;
         }
         System.out.println("-- best criterion function value is: " + String.format("%.2f", best_criterion));
 

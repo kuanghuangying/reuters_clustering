@@ -16,13 +16,13 @@ public class kmeans {
     int point_num;
     double criterionVal = Double.MAX_VALUE;
 
-    public kmeans(point[] points, Map<String,String> class_label, int n_cluster, String critFunc, int seed){
+    public kmeans(point[] points, Map<String,String> class_label, int dimension, int n_cluster, String critFunc, int seed){
         this.points = points;
         this.class_label = class_label;
         this.n_cluster = n_cluster;
         this.critFunc = critFunc;
         this.seed = seed;
-        this.dimension = points.length;
+        this.dimension = dimension;
         this.clusters = new cluster[n_cluster];
         this.point_num = class_label.size();
     }
@@ -36,7 +36,7 @@ public class kmeans {
             points[num].cluster_id = i;
             clusters[i] = new_cluster;
 //            System.out.format("cluster id: %d",i);
-//            System.out.println();
+           // System.out.println("centr " + points[num].value.len);
         }
         System.out.println("finished initializing centroids for trial " + String.valueOf(trial_id));
     }
@@ -62,15 +62,18 @@ public class kmeans {
                             update_cluster(p,cluster.cluster_id);
                         }
                     }
+                    break;
                 case ("I2"):
                     closest = Double.MIN_VALUE;
                     for (cluster cluster : clusters){
+                        //System.out.println(cluster.cluster_id + " len " + cluster.centroid.len);
                         double similarity = p.distance_from(cluster.centroid, critFunc);
                         if (similarity > closest) {
                             closest = similarity;
                             update_cluster(p,cluster.cluster_id);
                         }
                     }
+                    break;
                 case ("E1"):
                     closest = Double.MIN_VALUE;
                     for (cluster cluster : clusters){
@@ -80,6 +83,7 @@ public class kmeans {
                             update_cluster(p,cluster.cluster_id);
                         }
                     }
+                    break;
             }
             //System.out.println(p.label + " belongs to " + p.cluster_id);
         }
@@ -102,14 +106,29 @@ public class kmeans {
             System.out.format("empty cluster number: %d \n",empty_cluster);
         }
 
-        //becasue there hasn't been issue with empty cluster, pending implementation later
-        //for each empty cluster, we need to find a large cluster to split into two
-//        for (int a = 0; a < empty_cluster; a++){
-//            int max_cluster_id = cluster_size.indexOf(Collections.max(cluster_size));
-//            // split
-//
-//            //update cluster_size
-//        }
+        //to overcome the dropback of k-means producing empty cluster, we could
+        //for each empty cluster, find a large cluster to split into two
+        for (int a = 0; a < cluster_size.size(); a++){
+            if (cluster_size.get(a) == 0){
+                int max_cluster_id = cluster_size.indexOf(Collections.max(cluster_size));
+                int max_points_total = cluster_size.get(max_cluster_id);
+                int add = 0;
+                for (point p :clusters[max_cluster_id].points){
+                    clusters[a].points.add(p);
+                    p.cluster_id = a;
+                    add ++;
+                    if (add > max_points_total/2){
+                        break;
+                    }
+                }
+                for (point p :clusters[a].points){
+                    clusters[max_cluster_id].points.remove(p);
+                }
+                cluster_size.set(a,max_points_total/2);
+                cluster_size.set(max_cluster_id,max_points_total/2);
+            }
+
+        }
         SparseVector[] new_centr_list = new SparseVector[n_cluster];
         for (int j = 0; j < n_cluster; j ++){
             new_centr_list[j] = new SparseVector(dimension);
@@ -130,7 +149,7 @@ public class kmeans {
         for (int id = 0; id < n_cluster; id++){
             SparseVector new_centr = new_centr_list[id];
             if(clusters[id].getSize() == 0){
-                empty_cluster ++;
+                //empty_cluster ++;
             }
             else {
                 double sc_factor = 1.0/((double) clusters[id].getSize());
@@ -141,6 +160,7 @@ public class kmeans {
         }
 
     }
+
     public void update_Criterion() {
         double new_critirion = 0.0;
         switch (critFunc) {
@@ -150,6 +170,40 @@ public class kmeans {
                     double distance = points[i].distance_from(clusters[c_id].centroid, critFunc);
                     new_critirion += (distance * distance);
                 }
+                break;
+            case ("I2"):
+                SparseVector Dv = new SparseVector(dimension);
+                for (point p : points) {
+                    for (int index : p.value.map.keySet()){
+                        if (Dv.map.containsKey(index)){
+                            Dv.put(index, p.value.map.get(index) + Dv.map.get(index));
+                        }
+                        else{
+                            Dv.put(index,p.value.map.get(index));
+                        }
+                    }
+                }
+                new_critirion += Dv.norm();
+                break;
+            case ("E1"):
+                SparseVector C = new SparseVector(dimension);
+                for (int i = 0; i < clusters.length; i++) {
+                    SparseVector c_i = clusters[i].centroid;
+                    for (int index : c_i.map.keySet()){
+                        if (C.get(index) == 0.0) {
+                            C.put(index, c_i.map.get(index));
+                        }
+                        else{
+                            C.put(index, c_i.map.get(index) + C.get(index));
+                        }
+                    }
+                }
+
+                for (int i = 0; i < n_cluster; i++) {
+                    double distance = clusters[i].centroid.cos_similarity(C);
+                    new_critirion += clusters[points[i].cluster_id].points.size() *distance ;
+                }
+                break;
         }
         criterionVal = new_critirion;
     }

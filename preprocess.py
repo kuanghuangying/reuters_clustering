@@ -40,7 +40,7 @@ def readStopList(stop_file):
 			l.append(word)
 	return l
 
-stop_file = open('reuters21578/stoplist.txt','r')
+stop_file = open('stoplist.txt','r')
 stop_list = readStopList(stop_file)
 stop_file.close()
 print('---------------------stop_list done----------------------')
